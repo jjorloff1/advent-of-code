@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # hello_world.rb
 
+# Sample class to test ruby
 class HelloWorld
-    def self.say_hello
-      'Hello, World!'
-    end
+  def self.say_hello
+    'Hello, World!'
   end
-  
-  puts HelloWorld.say_hello
-  
+end
+
+puts HelloWorld.say_hello
