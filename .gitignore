@@ -1,0 +1,35 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+
+# Ignore the default RSpec testing directory.
+/spec/tmp
+/spec/reports
+
+# Ignore macOS-specific files.
+.DS_Store
+
+# Ignore VS Code configuration files.
+.vscode/
+
+# Ignore config database YAML file.
+/config/database.yml
+
+# Ignore coverage data.
+/coverage/
+
+# Ignore generated files.
+/bin/
+/vendor/bundle/
+/vendor/bundler/
+
+# Ignore .env files containing sensitive information.
+.env*
