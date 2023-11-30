@@ -27,7 +27,6 @@
 /coverage/
 
 # Ignore generated files.
-/bin/
 /vendor/bundle/
 /vendor/bundler/
 
