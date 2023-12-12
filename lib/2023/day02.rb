@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
+CUBE_LIMITS = {
+  red: 12,
+  green: 13,
+  blue: 14
+}.freeze
+
 class Day02
+  def self.solve
+    file = File.open('input/2023/02/input.txt')
+    game_record = file.read
+
+    AllGamesEvaluator.new(game_record, CUBE_LIMITS).valid_game_sum
+  end
 end
 
 class Line
@@ -22,11 +34,11 @@ class Line
     end
   end
 
-  def cube_totals
+  def cube_maximums
     cube_sets.reduce do |a, b|
       merged_set = a.clone
       b.each_key do |key|
-        merged_set[key] = merged_set[key].to_i + b[key].to_i
+        merged_set[key] = b[key].to_i if b[key].to_i > merged_set[key].to_i
       end
 
       merged_set
@@ -37,7 +49,41 @@ class Line
     {
       game_id: game_id,
       cube_sets: cube_sets,
-      cube_totals: cube_totals # could make more efficient by passing cube_sets in
+      cube_maximums: cube_maximums # could make more efficient by passing cube_sets in
     }
   end
 end
+
+class GameEvaluator
+  def initialize(game, cube_limits)
+    @game = game
+    @cube_limits = cube_limits
+  end
+
+  def is_game_possible?
+    @cube_limits.each do |cube, limit|
+      return false if @game[:cube_maximums][cube].to_i > limit.to_i
+    end
+
+    true
+  end
+end
+
+class AllGamesEvaluator
+  def initialize(game_record, cube_limits)
+    @game_record = game_record
+    @cube_limits = cube_limits
+  end
+
+  def valid_game_sum
+    possible_ids = @game_record.lines.map do |game_line|
+      game = Line.new(game_line).game
+
+      GameEvaluator.new(game, @cube_limits).is_game_possible? ? game[:game_id].to_i : 0
+    end
+
+    possible_ids.sum
+  end
+end
+
+puts Day02.solve
